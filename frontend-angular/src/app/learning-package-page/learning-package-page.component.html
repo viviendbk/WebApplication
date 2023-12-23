@@ -1,0 +1,27 @@
+<!-- learning-package-page.component.html -->
+
+<div class="container mt-4">
+  <div class="row">
+    <!-- Display learningPackage on the left -->
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ learningPackage?.title }}</h5>
+          <p class="card-text">{{ learningPackage?.description }}</p>
+          <!-- Add other properties as needed -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Display the first learningFact in the middle -->
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ learningFacts[0]?.title }}</h5>
+          <p class="card-text">{{ learningFacts[0]?.question }}</p>
+          <!-- Add other properties as needed -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
