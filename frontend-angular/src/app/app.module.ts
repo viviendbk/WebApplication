@@ -16,6 +16,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StudyPageComponent } from './study-page/study-page.component';
 import { LearningPackagePageComponent } from './learning-package-page/learning-package-page.component';
+import { EditLearningPackagePageComponent } from './edit-learning-package-page/edit-learning-package-page.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { LearningPackagePageComponent } from './learning-package-page/learning-p
     HeaderComponent,
     HomeComponent,
     StudyPageComponent,
-    LearningPackagePageComponent
+    LearningPackagePageComponent,
+    EditLearningPackagePageComponent
   ],
   imports: [
     BrowserModule,

@@ -3,22 +3,39 @@
 <div class="container mt-4">
   <div class="row">
     <!-- Display learningPackage on the left -->
-    <div class="col-md-4">
+    <div class="col-md-8">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">{{ learningPackage?.title }}</h5>
+          <h3 class="card-title">{{ learningPackage?.title }}</h3>
           <p class="card-text">{{ learningPackage?.description }}</p>
           <!-- Add other properties as needed -->
         </div>
       </div>
     </div>
 
-    <!-- Display the first learningFact in the middle -->
-    <div class="col-md-8">
+    <!-- Display the first learningFact on a new line -->
+    <div class="col-md-12 mt-4">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">{{ learningFacts[0]?.title }}</h5>
-          <p class="card-text">{{ learningFacts[0]?.question }}</p>
+          <h5 class="card-title">{{ learningFacts[currentFactIndex]?.title }}</h5>
+          <p class="card-text">{{ learningFacts[currentFactIndex]?.question }}</p>
+
+          <!-- Conditionally display the answer and feedback options -->
+          <ng-container *ngIf="showAnswerFlag">
+            <p class="card-text">{{ learningFacts[currentFactIndex]?.answer }}</p>
+
+            <!-- Conditionally display the feedback options -->
+            <ng-container *ngIf="showAnswerFlag">
+              <p>How have you found this question?</p>
+              <button class="btn btn-success" (click)="provideFeedback('Easy')">Easy</button>
+              <button class="btn btn-warning" (click)="provideFeedback('Normal')">Normal</button>
+              <button class="btn btn-danger" (click)="provideFeedback('Difficult')">Difficult</button>
+            </ng-container>
+          </ng-container>
+
+          <!-- Button to show the answer -->
+          <button *ngIf="!showAnswerFlag" class="btn btn-primary" (click)="showAnswer()">Show the Answer</button>
+
           <!-- Add other properties as needed -->
         </div>
       </div>

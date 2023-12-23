@@ -44,12 +44,13 @@ learningFactRoutes.put('/learning-facts/:id', async (req, res) => {
         const updatedLearningFact = await LearningFact.update(req.body, {
             where: { learningFactId },
         });
-        res.status(200).send('LearningFact updated successfully');
+        res.status(200).json(updatedLearningFact);
     } catch (error) {
         console.error('Error updating LearningFact:', error);
         res.status(500).send('Error updating LearningFact');
     }
 });
+
 
 learningFactRoutes.delete('/learning-facts/:id', async (req, res) => {
     const learningFactId = req.params.id;

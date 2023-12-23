@@ -57,7 +57,7 @@ learningFactRoutes.put('/learning-facts/:id', (req, res) => __awaiter(void 0, vo
         const updatedLearningFact = yield LearningFact_1.default.update(req.body, {
             where: { learningFactId },
         });
-        res.status(200).send('LearningFact updated successfully');
+        res.status(200).json(updatedLearningFact);
     }
     catch (error) {
         console.error('Error updating LearningFact:', error);
