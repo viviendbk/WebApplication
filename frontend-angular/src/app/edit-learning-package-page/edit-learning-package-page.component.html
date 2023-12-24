@@ -1,0 +1,14 @@
+<div class="container mt-4">
+  <h1>Select the learning package that you want to study</h1>
+  <div class="row">
+    <div class="col-md-4" *ngFor="let learningPackage of learningPackages">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ learningPackage.title }}</h5>
+          <p class="card-text">{{ learningPackage.description }}</p>
+          <a (click)="navigateToLearningPackage(learningPackage.learningPackageId)" class="btn btn-primary" style="color: white;">Edit</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
