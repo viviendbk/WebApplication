@@ -1,15 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
+import {LearningFact} from "../app.component";
 
-interface LearningFact {
-  learningFactId: number
-  title: string
-  question: string
-  answer: string
-  nextStudyTime: string
-  learningPackageId: number
-}
 @Injectable({
   providedIn: 'root'
 })

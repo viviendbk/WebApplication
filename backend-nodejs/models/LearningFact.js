@@ -27,9 +27,17 @@ LearningFact.init({
         allowNull: false,
     },
     nextStudyTime: {
-        type: 'TIMESTAMP',
-        defaultValue: sequelize_2.default.literal('CURRENT_TIMESTAMP'),
+        type: sequelize_1.DataTypes.DATE,
+        defaultValue: sequelize_1.DataTypes.NOW,
         allowNull: false,
+    },
+    nbTimeReviewed: {
+        type: sequelize_1.DataTypes.INTEGER,
+        allowNull: false,
+    },
+    lastDateReview: {
+        type: sequelize_1.DataTypes.DATE,
+        allowNull: true
     },
     learningPackageId: {
         type: sequelize_1.DataTypes.INTEGER,

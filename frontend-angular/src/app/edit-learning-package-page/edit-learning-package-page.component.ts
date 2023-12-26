@@ -2,20 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {LearningPackageService} from "../services/learning-package.service";
 import {LearningFactService} from "../services/learning-fact.service";
+import {LearningFact, LearningPackage} from "../app.component";
 
-interface LearningPackage {
-  learningPackageId: number
-  title: string
-  description: string
-}
-interface LearningFact {
-  learningFactId: number
-  title: string
-  question: string
-  answer: string
-  nextStudyTime: string
-  learningPackageId: number
-}
 
 @Component({
   selector: 'app-edit-learning-package-page',

@@ -6,7 +6,9 @@ class LearningFact extends Model {
     public title!: string;
     public question!: string;
     public answer!: string;
-    public nextStudyTime!: string;
+    public nextStudyTime!: Date;
+    public lastDateReview!: Date;
+    public nbTimeReviewed!: number
     public learningPackageId!:number;
 }
 
@@ -30,9 +32,17 @@ LearningFact.init(
             allowNull: false,
         },
         nextStudyTime: {
-            type: 'TIMESTAMP',
-            defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW,
             allowNull: false,
+        },
+        nbTimeReviewed : {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        lastDateReview: {
+            type: DataTypes.DATE,
+            allowNull: true
         },
         learningPackageId: {
             type: DataTypes.INTEGER,

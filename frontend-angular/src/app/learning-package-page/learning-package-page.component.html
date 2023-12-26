@@ -14,31 +14,43 @@
     </div>
 
     <!-- Display the first learningFact on a new line -->
-    <div class="col-md-12 mt-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">{{ learningFacts[currentFactIndex]?.title }}</h5>
-          <p class="card-text">{{ learningFacts[currentFactIndex]?.question }}</p>
+    <ng-container *ngIf="!showEndMessage">
+      <div class="col-md-12 mt-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ learningFacts[currentFactIndex]?.title }}</h5>
+            <p class="card-text">{{ learningFacts[currentFactIndex]?.question }}</p>
 
-          <!-- Conditionally display the answer and feedback options -->
-          <ng-container *ngIf="showAnswerFlag">
-            <p class="card-text">{{ learningFacts[currentFactIndex]?.answer }}</p>
-
-            <!-- Conditionally display the feedback options -->
+            <!-- Conditionally display the answer and feedback options -->
             <ng-container *ngIf="showAnswerFlag">
-              <p>How have you found this question?</p>
-              <button class="btn btn-success" (click)="provideFeedback('Easy')">Easy</button>
-              <button class="btn btn-warning" (click)="provideFeedback('Normal')">Normal</button>
-              <button class="btn btn-danger" (click)="provideFeedback('Difficult')">Difficult</button>
+              <p class="card-text">{{ learningFacts[currentFactIndex]?.answer }}</p>
+
+              <!-- Conditionally display the feedback options -->
+              <ng-container *ngIf="showAnswerFlag">
+                <p>How have you found this question?</p>
+                <button class="btn btn-success" (click)="provideFeedback('Easy')">Easy</button>
+                <button class="btn btn-warning" (click)="provideFeedback('Correct')">Correct</button>
+                <button class="btn btn-danger" (click)="provideFeedback('To review')">To review</button>
+              </ng-container>
             </ng-container>
-          </ng-container>
 
-          <!-- Button to show the answer -->
-          <button *ngIf="!showAnswerFlag" class="btn btn-primary" (click)="showAnswer()">Show the Answer</button>
+            <!-- Button to show the answer -->
+            <button *ngIf="!showAnswerFlag" class="btn btn-primary" (click)="showAnswer()">Show the Answer</button>
 
-          <!-- Add other properties as needed -->
+            <!-- Add other properties as needed -->
+          </div>
         </div>
       </div>
-    </div>
+    </ng-container>
+    <ng-container *ngIf="showEndMessage">
+      <div class="col-md-12 mt-4">
+        <div class="card">
+          <div class="card-body">
+            <p>You have successfully finished this package!</p>
+            <button class="btn btn-primary" (click)="goBackToStudyPage()">Go back to study Page</button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
   </div>
 </div>
