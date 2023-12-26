@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LearningFact, LearningPackage } from "../app.component";
 import { LearningPackageService } from '../services/learning-package.service';
 import { LearningFactService } from  '../services/learning-fact.service';
+import {Router} from "@angular/router";
 @Component({
   selector: 'app-create-page',
   templateUrl: './create-page.component.html',
@@ -17,7 +18,8 @@ export class CreatePageComponent {
   constructor(
     private formBuilder: FormBuilder,
     private learningPackageService: LearningPackageService,
-    private learningFactsService: LearningFactService
+    private learningFactsService: LearningFactService,
+    private router: Router
   ) {
     this.learningPackageForm = this.formBuilder.group({
       title: ['', Validators.required],
@@ -41,6 +43,8 @@ export class CreatePageComponent {
 
           // Create Learning Facts
           this.createLearningFacts(response.learningPackageId);
+          this.router.navigate([`/study`]);
+
         },
         (error) => {
           console.error('Error creating Learning Package:', error);

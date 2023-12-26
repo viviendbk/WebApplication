@@ -10,7 +10,7 @@ import {LearningFact, LearningPackage} from "../app.component";
   templateUrl: './learning-package-page.component.html',
   styleUrl: './learning-package-page.component.css'
 })
-export class LearningPackagePageComponent implements OnInit, OnDestroy  {
+export class LearningPackagePageComponent implements OnInit  {
   learningFacts: LearningFact[] = [];
   learningPackage: LearningPackage | undefined;
   id = this.route.snapshot.paramMap.get('id');
@@ -28,9 +28,6 @@ export class LearningPackagePageComponent implements OnInit, OnDestroy  {
   ngOnInit(): void {
     this.fetchLearningFacts();
     this.fetchLearningPackage();
-  }
-  ngOnDestroy(): void {
-    this.currentFactIndex = 0;
   }
 
   fetchLearningFacts(): void {
