@@ -3,6 +3,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import {LearningFact, LearningPackage} from "../app.component";
 
 @Injectable({
   providedIn: 'root'
@@ -22,4 +23,8 @@ export class LearningPackageService {
   getLearningFactsByPackageId(id: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/${id}/learning-facts`);
   }
+  createLearningPackage(learningPackage: LearningPackage): Observable<any> {
+    return this.http.post(this.apiUrl, learningPackage);
+  }
+
 }

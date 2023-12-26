@@ -7,6 +7,7 @@ const sequelize_1 = require("sequelize");
 const sequelize_2 = __importDefault(require("../database/sequelize"));
 class LearningPackage extends sequelize_1.Model {
 }
+// @ts-ignore
 LearningPackage.init({
     learningPackageId: {
         type: sequelize_1.DataTypes.INTEGER,
@@ -25,18 +26,10 @@ LearningPackage.init({
         type: sequelize_1.DataTypes.TEXT,
         allowNull: false,
     },
-    targetAudience: {
-        type: sequelize_1.DataTypes.TEXT,
-        allowNull: false,
-    },
-    difficultyLevel: {
-        type: sequelize_1.DataTypes.INTEGER,
-        allowNull: false,
-    },
 }, {
     sequelize: sequelize_2.default,
     tableName: 'LearningPackage',
     modelName: 'LearningPackage',
-    timestamps: false, // Désactive les timestamps createdAt et updatedAt
+    timestamps: false,
 });
 exports.default = LearningPackage;

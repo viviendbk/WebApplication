@@ -22,5 +22,6 @@ export interface LearningFact{
   nextStudyTime: Date
   lastDateReview: Date
   nbTimeReviewed: number
+  confidenceLevel: number
   learningPackageId: number
 }

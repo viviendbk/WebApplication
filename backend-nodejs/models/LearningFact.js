@@ -39,6 +39,11 @@ LearningFact.init({
         type: sequelize_1.DataTypes.DATE,
         allowNull: true
     },
+    confidenceLevel: {
+        type: sequelize_1.DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0
+    },
     learningPackageId: {
         type: sequelize_1.DataTypes.INTEGER,
         allowNull: false,
@@ -51,7 +56,7 @@ LearningFact.init({
     sequelize: sequelize_2.default,
     tableName: 'LearningFact',
     modelName: 'LearningFact',
-    timestamps: false, // Désactive les timestamps createdAt et updatedAt
+    timestamps: false,
 });
 LearningPackage_1.default.hasMany(LearningFact, { foreignKey: 'learningPackageId', onDelete: 'CASCADE' });
 LearningFact.belongsTo(LearningPackage_1.default, { foreignKey: 'learningPackageId' });

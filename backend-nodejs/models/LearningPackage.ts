@@ -6,10 +6,9 @@ class LearningPackage extends Model {
     public title!: string;
     public description!: string;
     public category!: string;
-    public targetAudience!: string;
-    public difficultyLevel!: number;
 }
 
+// @ts-ignore
 LearningPackage.init(
     {
         learningPackageId: {
@@ -29,21 +28,12 @@ LearningPackage.init(
             type: DataTypes.TEXT,
             allowNull: false,
         },
-        targetAudience: {
-            type: DataTypes.TEXT,
-            allowNull: false,
-        },
-        difficultyLevel: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-
     },
     {
         sequelize,
-        tableName: 'LearningPackage', // This should match the actual table name in your database
+        tableName: 'LearningPackage',
         modelName: 'LearningPackage',
-        timestamps: false, // Désactive les timestamps createdAt et updatedAt
+        timestamps: false,
     }
 );
 

@@ -6,11 +6,11 @@ import {LearningFact, LearningPackage} from "../app.component";
 
 
 @Component({
-  selector: 'app-edit-learning-package-page',
-  templateUrl: './edit-learning-package-page.component.html',
-  styleUrl: './edit-learning-package-page.component.css'
+  selector: 'app-edit-page',
+  templateUrl: './edit-page.component.html',
+  styleUrl: './edit-page.component.css'
 })
-export class EditLearningPackagePageComponent implements OnInit{
+export class EditPageComponent implements OnInit{
 
   learningFacts: LearningFact[] = [];
   learningPackages: LearningPackage[] = [];

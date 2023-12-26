@@ -9,6 +9,7 @@ class LearningFact extends Model {
     public nextStudyTime!: Date;
     public lastDateReview!: Date;
     public nbTimeReviewed!: number
+    public confidenceLevel!: number
     public learningPackageId!:number;
 }
 
@@ -44,6 +45,11 @@ LearningFact.init(
             type: DataTypes.DATE,
             allowNull: true
         },
+        confidenceLevel: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            defaultValue: 0
+        },
         learningPackageId: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -57,7 +63,7 @@ LearningFact.init(
         sequelize,
         tableName: 'LearningFact',
         modelName: 'LearningFact',
-        timestamps: false, // Désactive les timestamps createdAt et updatedAt
+        timestamps: false,
     }
 );
 

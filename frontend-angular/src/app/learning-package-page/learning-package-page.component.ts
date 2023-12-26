@@ -74,7 +74,8 @@ export class LearningPackagePageComponent implements OnInit, OnDestroy  {
   }
 
   isThereLearningFactsAvailable() : boolean {
-    for (let i = 1; i < this.learningFacts.length; i++) {
+    for (let i = 0; i < this.learningFacts.length; i++) {
+      console.log("LEARNING FACT " + i)
       if (this.canDisplayLearningFact(this.learningFacts[i])) {
         return true
       }
@@ -89,41 +90,45 @@ export class LearningPackagePageComponent implements OnInit, OnDestroy  {
 
     let currentLearningFact = this.learningFacts[this.currentFactIndex];
 
-    // looking for the next learningFact
-    if (this.isThereLearningFactsAvailable()) {
-      let newIndex = 0
-      for (let i = 1; i < this.learningFacts.length; i++) {
-        if (this.canDisplayLearningFact(this.learningFacts[(i + this.currentFactIndex) % this.learningFacts.length])) {
-          newIndex = (i + this.currentFactIndex) % this.learningFacts.length;
-          break
+    let newDate = new Date()
+    if (currentLearningFact) {
+      if (currentLearningFact.confidenceLevel < 2) {
+        switch (feedback) {
+          case 'Easy':
+            newDate.setDate(newDate.getDate() + 1)
+            currentLearningFact.confidenceLevel = 2
+            break
+          case 'Correct':
+            currentLearningFact.confidenceLevel++
+            if (currentLearningFact.confidenceLevel == 2) {
+              newDate.setDate(newDate.getDate() + 1)
+            }
+            else {
+              newDate.setMinutes(newDate.getMinutes() + 1)
+            }
+            break
+          case 'To review':
+            currentLearningFact.confidenceLevel = 0
+            break
         }
       }
-      this.currentFactIndex = newIndex
-    }
-    else
-    {
-      this.showEndMessage = true
-    }
-
-
-    // Update nextStudyTime based on feedback if the feedback is "easy"
-    if (currentLearningFact) {
-      let currentTimestamp = new Date();
-
-      let minutesToAdd = 0;
-
-      switch (feedback) {
-        case 'Easy':
-          minutesToAdd = 5000;
-          break
-        case 'Correct':
-          minutesToAdd = 10;
-          break
-        case 'To review':
-          minutesToAdd = 0;
-          break
+      else {
+        switch (feedback) {
+          case 'Easy':
+            newDate.setDate(newDate.getDate() + 10);
+            break
+          case 'Correct':
+            newDate.setDate(newDate.getDate() + 5);
+            break
+          case 'Difficult':
+            newDate.setDate(newDate.getDate() + 2);
+            break
+          case 'To review':
+            break
+        }
       }
-      currentLearningFact.nextStudyTime = new Date(currentTimestamp.getTime() + minutesToAdd * 60 * 1000)
+
+      currentLearningFact.nextStudyTime = newDate
       currentLearningFact.lastDateReview = new Date()
       currentLearningFact.nbTimeReviewed++;
 
@@ -139,6 +144,22 @@ export class LearningPackagePageComponent implements OnInit, OnDestroy  {
             // Handle the error
           }
         );
+
+      // looking for the next learningFact
+      if (this.isThereLearningFactsAvailable()) {
+        let newIndex = 0
+        for (let i = 1; i < this.learningFacts.length; i++) {
+          if (this.canDisplayLearningFact(this.learningFacts[(i + this.currentFactIndex) % this.learningFacts.length])) {
+            newIndex = (i + this.currentFactIndex) % this.learningFacts.length;
+            break
+          }
+        }
+        this.currentFactIndex = newIndex
+      }
+      else
+      {
+        this.showEndMessage = true
+      }
     }
   }
 

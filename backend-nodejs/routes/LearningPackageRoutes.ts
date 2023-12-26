@@ -16,6 +16,19 @@ learningPackageRoutes.post('/learning-packages', async (req, res) => {
     }
 });
 
+learningPackageRoutes.post('/learning-packages/:id/learning-facts', async (req, res) => {
+    const learningPackageId = req.params.id;
+
+    try {
+        const learningFacts = await LearningFact.create(req.body);
+
+        res.json(learningFacts);
+    } catch (error) {
+        console.error('Error fetching learning facts:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 // Read all LearningPackages
 learningPackageRoutes.get('/learning-packages', async (req, res) => {
     try {

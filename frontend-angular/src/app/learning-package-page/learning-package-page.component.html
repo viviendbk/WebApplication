@@ -26,11 +26,18 @@
               <p class="card-text">{{ learningFacts[currentFactIndex]?.answer }}</p>
 
               <!-- Conditionally display the feedback options -->
-              <ng-container *ngIf="showAnswerFlag">
+              <ng-container *ngIf="showAnswerFlag&&learningFacts[currentFactIndex].confidenceLevel<2">
                 <p>How have you found this question?</p>
                 <button class="btn btn-success" (click)="provideFeedback('Easy')">Easy</button>
                 <button class="btn btn-warning" (click)="provideFeedback('Correct')">Correct</button>
                 <button class="btn btn-danger" (click)="provideFeedback('To review')">To review</button>
+              </ng-container>
+              <ng-container *ngIf="showAnswerFlag&&learningFacts[currentFactIndex].confidenceLevel==2">
+                <p>How have you found this question?</p>
+                <button class="btn btn-success" (click)="provideFeedback('Easy')">Easy</button>
+                <button class="btn btn-warning" (click)="provideFeedback('Correct')">Correct</button>
+                <button class="btn btn-danger" (click)="provideFeedback('Difficult')">Difficult</button>
+                <button class="btn btn-dark" (click)="provideFeedback('To review')">To review</button>
               </ng-container>
             </ng-container>
 

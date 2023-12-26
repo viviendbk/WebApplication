@@ -27,6 +27,17 @@ learningPackageRoutes.post('/learning-packages', (req, res) => __awaiter(void 0,
         res.status(500).send('Error creating LearningPackage');
     }
 }));
+learningPackageRoutes.post('/learning-packages/:id/learning-facts', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const learningPackageId = req.params.id;
+    try {
+        const learningFacts = yield LearningFact_1.default.create(req.body);
+        res.json(learningFacts);
+    }
+    catch (error) {
+        console.error('Error fetching learning facts:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}));
 // Read all LearningPackages
 learningPackageRoutes.get('/learning-packages', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {

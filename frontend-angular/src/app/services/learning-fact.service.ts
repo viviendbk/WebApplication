@@ -17,4 +17,9 @@ export class LearningFactService {
     const url = `${this.apiUrl}/${learningFact.learningFactId}`;
     return this.httpClient.put(url, learningFact);
   }
+
+  createLearningFact(learningFact: LearningFact): Observable<any> {
+    const url = `${this.apiUrl}`;
+    return this.httpClient.post(url, learningFact);
+  }
 }
