@@ -1,11 +1,39 @@
-import LearningPackage from '../models/LearningPackage';
-import LearningFact from "../models/LearningFact";
+/**
+ * @swagger
+ * tags:
+ *   name: Learning Packages
+ *   description: Operations related to Learning Packages
+ */
+
 import express, { Request, Response } from 'express';
+import LearningPackage from '../models/LearningPackage';
+import LearningFact from '../models/LearningFact';
 
 const learningPackageRoutes = express.Router();
 
-
-// Create a LearningPackage
+/**
+ * @swagger
+ * /learning-packages:
+ *   post:
+ *     summary: Create a new Learning Package
+ *     description: Create a new Learning Package with the provided data.
+ *     tags: [Learning Packages]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/LearningPackage'
+ *     responses:
+ *       201:
+ *         description: Created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/LearningPackage'
+ *       500:
+ *         description: Internal Server Error
+ */
 learningPackageRoutes.post('/learning-packages', async (req, res) => {
     try {
         const newLearningPackage = await LearningPackage.create(req.body);
@@ -16,6 +44,36 @@ learningPackageRoutes.post('/learning-packages', async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /learning-packages/{id}/learning-facts:
+ *   post:
+ *     summary: Create new Learning Facts for a Learning Package
+ *     description: Create new Learning Facts associated with a Learning Package by its ID.
+ *     tags: [Learning Packages]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the Learning Package
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/LearningFact'
+ *     responses:
+ *       201:
+ *         description: Created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/LearningFact'
+ *       500:
+ *         description: Internal Server Error
+ */
 learningPackageRoutes.post('/learning-packages/:id/learning-facts', async (req, res) => {
     const learningPackageId = req.params.id;
 
@@ -29,7 +87,25 @@ learningPackageRoutes.post('/learning-packages/:id/learning-facts', async (req, 
     }
 });
 
-// Read all LearningPackages
+/**
+ * @swagger
+ * /learning-packages:
+ *   get:
+ *     summary: Get all Learning Packages
+ *     description: Retrieve a list of all Learning Packages.
+ *     tags: [Learning Packages]
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/LearningPackage'
+ *       500:
+ *         description: Internal Server Error
+ */
 learningPackageRoutes.get('/learning-packages', async (req, res) => {
     try {
         const learningPackages = await LearningPackage.findAll();
@@ -40,7 +116,32 @@ learningPackageRoutes.get('/learning-packages', async (req, res) => {
     }
 });
 
-// Read a specific LearningPackage by ID
+/**
+ * @swagger
+ * /learning-packages/{id}:
+ *   get:
+ *     summary: Get a Learning Package by ID
+ *     description: Retrieve a Learning Package by its ID.
+ *     tags: [Learning Packages]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the Learning Package
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/LearningPackage'
+ *       404:
+ *         description: LearningPackage not found
+ *       500:
+ *         description: Internal Server Error
+ */
 learningPackageRoutes.get('/learning-packages/:id', async (req, res) => {
     const learningPackageId = req.params.id;
     try {
@@ -58,7 +159,32 @@ learningPackageRoutes.get('/learning-packages/:id', async (req, res) => {
     }
 });
 
-// Route to get learning facts by learning package ID
+/**
+ * @swagger
+ * /learning-packages/{id}/learning-facts:
+ *   get:
+ *     summary: Get Learning Facts by Learning Package ID
+ *     description: Retrieve a list of Learning Facts associated with a Learning Package by its ID.
+ *     tags: [Learning Packages]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the Learning Package
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/LearningFact'
+ *       500:
+ *         description: Internal Server Error
+ */
 learningPackageRoutes.get('/learning-packages/:id/learning-facts', async (req, res) => {
     const learningPackageId = req.params.id;
 
@@ -75,22 +201,73 @@ learningPackageRoutes.get('/learning-packages/:id/learning-facts', async (req, r
     }
 });
 
-
-// Update a LearningPackage by ID
+/**
+ * @swagger
+ * /learning-packages/{id}:
+ *   put:
+ *     summary: Update a Learning Package by ID
+ *     description: Update a Learning Package with the provided data by its ID.
+ *     tags: [Learning Packages]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the Learning Package
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/LearningPackage'
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/LearningPackage'
+ *       404:
+ *         description: LearningPackage not found
+ *       500:
+ *         description: Internal Server Error
+ */
 learningPackageRoutes.put('/learning-packages/:id', async (req, res) => {
     const learningPackageId = req.params.id;
     try {
         const updatedLearningPackage = await LearningPackage.update(req.body, {
             where: { learningPackageId },
         });
-        res.status(200).send('LearningPackage updated successfully');
+        res.status(200).json(updatedLearningPackage);
     } catch (error) {
         console.error('Error updating LearningPackage:', error);
         res.status(500).send('Error updating LearningPackage');
     }
 });
 
-// Delete a LearningPackage by ID
+/**
+ * @swagger
+ * /learning-packages/{id}:
+ *   delete:
+ *     summary: Delete a Learning Package by ID
+ *     description: Delete a Learning Package by its ID.
+ *     tags: [Learning Packages]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the Learning Package
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: LearningPackage and associated LearningFacts deleted successfully
+ *       404:
+ *         description: LearningPackage not found
+ *       500:
+ *         description: Internal Server Error
+ */
 learningPackageRoutes.delete('/learning-packages/:id', async (req, res) => {
     const learningPackageId = req.params.id;
     try {
@@ -109,4 +286,4 @@ learningPackageRoutes.delete('/learning-packages/:id', async (req, res) => {
     }
 });
 
-export default learningPackageRoutes
+export default learningPackageRoutes;

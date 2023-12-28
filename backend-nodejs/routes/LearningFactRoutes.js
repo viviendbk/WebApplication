@@ -1,4 +1,5 @@
 "use strict";
+// LearningFactRoutes.ts
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -12,9 +13,38 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const LearningFact_1 = __importDefault(require("../models/LearningFact"));
+/**
+ * @swagger
+ * tags:
+ *   name: Learning Facts
+ *   description: Operations related to Learning Facts
+ */
 const express_1 = __importDefault(require("express"));
+const LearningFact_1 = __importDefault(require("../models/LearningFact"));
 const learningFactRoutes = express_1.default.Router();
+/**
+ * @swagger
+ * /learning-facts:
+ *   post:
+ *     summary: Create a new Learning Fact
+ *     description: Create a new Learning Fact with the provided data.
+ *     tags: [Learning Facts]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/LearningFact'
+ *     responses:
+ *       201:
+ *         description: Created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/LearningFact'
+ *       500:
+ *         description: Internal Server Error
+ */
 learningFactRoutes.post('/learning-facts', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const newLearningFact = yield LearningFact_1.default.create(req.body);
@@ -25,6 +55,25 @@ learningFactRoutes.post('/learning-facts', (req, res) => __awaiter(void 0, void 
         res.status(500).send('Error creating LearningFact');
     }
 }));
+/**
+ * @swagger
+ * /learning-facts:
+ *   get:
+ *     summary: Get all Learning Facts
+ *     description: Retrieve a list of all Learning Facts.
+ *     tags: [Learning Facts]
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/LearningFact'
+ *       500:
+ *         description: Internal Server Error
+ */
 learningFactRoutes.get('/learning-facts', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const learningFacts = yield LearningFact_1.default.findAll();
@@ -35,6 +84,32 @@ learningFactRoutes.get('/learning-facts', (req, res) => __awaiter(void 0, void 0
         res.status(500).send('Error retrieving LearningFacts');
     }
 }));
+/**
+ * @swagger
+ * /learning-facts/{id}:
+ *   get:
+ *     summary: Get a Learning Fact by ID
+ *     description: Retrieve a Learning Fact by its ID.
+ *     tags: [Learning Facts]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the Learning Fact
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/LearningFact'
+ *       404:
+ *         description: LearningFact not found
+ *       500:
+ *         description: Internal Server Error
+ */
 learningFactRoutes.get('/learning-facts/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const learningFactId = req.params.id;
     try {
@@ -51,6 +126,38 @@ learningFactRoutes.get('/learning-facts/:id', (req, res) => __awaiter(void 0, vo
         res.status(500).send('Error retrieving LearningFact');
     }
 }));
+/**
+ * @swagger
+ * /learning-facts/{id}:
+ *   put:
+ *     summary: Update a Learning Fact by ID
+ *     description: Update a Learning Fact with the provided data by its ID.
+ *     tags: [Learning Facts]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the Learning Fact
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/LearningFact'
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/LearningFact'
+ *       404:
+ *         description: LearningFact not found
+ *       500:
+ *         description: Internal Server Error
+ */
 learningFactRoutes.put('/learning-facts/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const learningFactId = req.params.id;
     try {
@@ -64,6 +171,28 @@ learningFactRoutes.put('/learning-facts/:id', (req, res) => __awaiter(void 0, vo
         res.status(500).send('Error updating LearningFact');
     }
 }));
+/**
+ * @swagger
+ * /learning-facts/{id}:
+ *   delete:
+ *     summary: Delete a Learning Fact by ID
+ *     description: Delete a Learning Fact by its ID.
+ *     tags: [Learning Facts]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the Learning Fact
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: LearningFact deleted successfully
+ *       404:
+ *         description: LearningFact not found
+ *       500:
+ *         description: Internal Server Error
+ */
 learningFactRoutes.delete('/learning-facts/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const learningFactId = req.params.id;
     try {

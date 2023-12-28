@@ -1,4 +1,6 @@
 import express, { Request, Response } from 'express';
+import swaggerUi from 'swagger-ui-express';
+import specs from './swagger';
 import learningFactRoutes from './routes/LearningFactRoutes';
 import learningPackageRoutes from './routes/LearningPackageRoutes';
 
@@ -17,9 +19,11 @@ const app = express();
   }
 })();
 
-
 // Middleware to parse JSON request bodies
 app.use(express.json());
+
+// Use Swagger UI
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 // Use the imported route files as middleware
 app.use(learningFactRoutes);
@@ -31,5 +35,3 @@ app.get('/api/liveness', (req: Request, res: Response) => {
 });
 
 export default app;
-
-
