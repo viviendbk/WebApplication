@@ -27,4 +27,7 @@ export class LearningPackageService {
     return this.http.post(this.apiUrl, learningPackage);
   }
 
+  updateLearningPackage(id: number, updatedPackage: LearningPackage): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, updatedPackage);
+  }
 }

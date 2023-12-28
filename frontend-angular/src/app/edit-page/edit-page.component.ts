@@ -3,6 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {LearningPackageService} from "../services/learning-package.service";
 import {LearningFactService} from "../services/learning-fact.service";
 import {LearningFact, LearningPackage} from "../app.component";
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class EditPageComponent implements OnInit{
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private learningPackageService: LearningPackageService,
     private learningFactService: LearningFactService
   ) { }
@@ -39,6 +41,6 @@ export class EditPageComponent implements OnInit{
   }
 
   navigateToLearningPackage(learningPackageId: any) {
-
+    this.router.navigate(['/edit-learning-package', learningPackageId]);
   }
 }

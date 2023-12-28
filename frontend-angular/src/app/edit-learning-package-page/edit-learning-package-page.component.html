@@ -1,7 +1,7 @@
-<!-- learning-package-create.component.html -->
+<!-- edit-learning-package-page.component.html -->
 
 <div class="container mt-4">
-  <h1>Create Learning Package</h1>
+  <h1>Edit Learning Package</h1>
   <form [formGroup]="learningPackageForm">
     <!-- Learning Package Form -->
     <div class="form-group">
@@ -13,34 +13,34 @@
       <textarea id="description" formControlName="description" class="form-control"></textarea>
     </div>
     <div class="form-group">
-      <label for="description">Category:</label>
+      <label for="category">Category:</label>
       <textarea id="category" formControlName="category" class="form-control"></textarea>
     </div>
+
+    <!-- Learning Fact Forms -->
+    <div *ngFor="let learningFactForm of learningFactsFormArray; let i = index">
+      <h2>Learning Fact {{ i + 1 }}</h2>
+      <form [formGroup]="learningFactForm">
+        <div class="form-group">
+          <label for="factTitle">Title:</label>
+          <input type="text" id="factTitle" formControlName="title" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label for="question">Question:</label>
+          <textarea id="question" formControlName="question" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="answer">Answer:</label>
+          <textarea id="answer" formControlName="answer" class="form-control"></textarea>
+        </div>
+        <button type="button" (click)="removeLearningFactForm(i)" class="btn btn-danger">Remove Learning Fact</button>
+      </form>
+    </div>
+
+    <!-- Add Learning Fact Button -->
+    <button type="button" (click)="addLearningFactForm()" class="btn btn-secondary">Add Learning Fact</button>
+
+    <!-- Update Learning Package Button -->
+    <button type="button" (click)="updateLearningPackage()" class="btn btn-primary">Update Learning Package</button>
   </form>
-
-  <!-- Learning Fact Forms -->
-  <div *ngFor="let learningFactForm of learningFactsFormArray; let i = index">
-    <h2>Learning Fact {{ i + 1 }}</h2>
-    <form [formGroup]="learningFactForm">
-      <div class="form-group">
-        <label for="factTitle">Title:</label>
-        <input type="text" id="factTitle" formControlName="title" class="form-control" />
-      </div>
-      <div class="form-group">
-        <label for="question">Question:</label>
-        <textarea id="question" formControlName="question" class="form-control"></textarea>
-      </div>
-      <div class="form-group">
-        <label for="answer">Answer:</label>
-        <textarea id="answer" formControlName="answer" class="form-control"></textarea>
-      </div>
-      <button type="button" (click)="removeLearningFactForm(i)" class="btn btn-danger">Remove Learning Fact</button>
-    </form>
-  </div>
-
-  <!-- Add Learning Fact Button -->
-  <button type="button" (click)="addLearningFactForm()" class="btn btn-secondary">Add Learning Fact</button>
-
-  <button type="button" (click)="createLearningPackage()" class="btn btn-primary">Submit</button>
-
 </div>
