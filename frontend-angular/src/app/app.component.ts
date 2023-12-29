@@ -10,6 +10,7 @@ export class AppComponent {
 }
 
 export interface LearningPackage {
+  category: any;
   learningPackageId: number
   title: string
   description: string
