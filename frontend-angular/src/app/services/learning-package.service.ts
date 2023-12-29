@@ -30,4 +30,6 @@ export class LearningPackageService {
   updateLearningPackage(id: number, updatedPackage: LearningPackage): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}`, updatedPackage);
   }
+
+
 }
