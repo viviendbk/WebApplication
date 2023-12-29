@@ -80,47 +80,79 @@ export class EditLearningPackagePageComponent implements OnInit {
         );
     }
 
-    updateLearningPackage(): void {
-        if (this.learningPackageForm.valid) {
-            const updatedPackage: LearningPackage = {
-                ...this.learningPackage,
-                ...this.learningPackageForm.value
-            };
+  updateLearningPackage(): void {
+    if (this.learningPackageForm.valid) {
+      const updatedPackage: LearningPackage = {
+        ...this.learningPackage,
+        ...this.learningPackageForm.value
+      };
 
-            const updateLearningFactsObservables = this.learningFactsFormArray.map((formGroup, index) => {
-                const learningFact: LearningFact = {
-                    ...this.learningFacts[index],
-                    ...formGroup.value
-                };
-                return this.learningFactService.updateLearningFact(learningFact);
+      // Identify learning facts to delete
+      const factsToDelete: LearningFact[] = this.learningFacts
+        .filter((fact, index) => !this.learningFactsFormArray[index])
+        .map(fact => ({
+          ...fact,
+          markedForDeletion: true // You can add a flag or property to indicate deletion
+        }));
+
+      const updateLearningFactsObservables = this.learningFactsFormArray.map((formGroup, index) => {
+        const learningFact: LearningFact = {
+          ...this.learningFacts[index],
+          ...formGroup.value
+        };
+        return this.learningFactService.updateLearningFact(learningFact);
+      });
+
+      const createLearningFactsObservables = this.learningFactsFormArray
+        .filter((formGroup, index) => !this.learningFacts[index])
+        .map(formGroup => {
+          const learningFact: LearningFact = formGroup.value;
+          learningFact.learningPackageId = updatedPackage.learningPackageId!;
+          return this.learningFactService.createLearningFact(learningFact);
+        });
+
+      // Combine all observables using forkJoin
+      forkJoin([...updateLearningFactsObservables, ...createLearningFactsObservables]).subscribe(
+        (responses) => {
+          console.log('Learning Facts updated/created:', responses);
+
+          // After updating and creating, delete learning facts
+          const deleteLearningFactsObservables = factsToDelete.map(learningFact => {
+            return this.learningFactService.deleteLearningFactById(learningFact.learningFactId!);
+          });
+          console.log('test1')
+          console.log('Number of delete observables:', deleteLearningFactsObservables.length);
+          forkJoin(deleteLearningFactsObservables).subscribe(
+            (deleteResponses) => {
+              console.log('Learning Facts deleted:', deleteResponses);
+              console.log("test2")
+              // Continue with updating the learning package
+
+            },
+            (deleteError) => {
+              console.error('Error deleting Learning Facts:', deleteError);
+            }
+          );
+          this.learningPackageService.updateLearningPackage(updatedPackage.learningPackageId!, updatedPackage).subscribe(
+            (response) => {
+              console.log('Learning Package updated:', response);
+
+            },
+            (error) => {
+              console.error('Error updating Learning Package:', error);
             });
 
-            const createLearningFactsObservables = this.learningFactsFormArray
-                .filter((formGroup, index) => !this.learningFacts[index])
-                .map(formGroup => {
-                    const learningFact: LearningFact = formGroup.value;
-                    learningFact.learningPackageId = updatedPackage.learningPackageId!;
-                    return this.learningFactService.createLearningFact(learningFact);
-                });
+        },
 
-            forkJoin([...updateLearningFactsObservables, ...createLearningFactsObservables]).subscribe(
-                (responses) => {
-                    console.log('Learning Facts updated/created:', responses);
-                },
-                (error) => {
-                    console.error('Error updating/creating Learning Facts:', error);
-                }
-            );
-
-            this.learningPackageService.updateLearningPackage(updatedPackage.learningPackageId!, updatedPackage).subscribe(
-                (response) => {
-                    console.log('Learning Package updated:', response);
-                },
-                (error) => {
-                    console.error('Error updating Learning Package:', error);
-                });
-        }
+        (error) => {
+          console.error('Error updating/creating Learning Facts:', error);
+        });
     }
+    this.router.navigate(['/edit']).then(() => {
+      // Reload the page after navigation
+      window.location.reload()
+    });
+  }
 
     addLearningFactForm(): void {
         const learningFactForm = this.formBuilder.group({

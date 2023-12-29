@@ -23,10 +23,11 @@ export class LearningFactService {
     return this.httpClient.post(url, learningFact);
   }
 
-  deleteLearningFact(learningFactId: number): Observable<any> {
+  deleteLearningFactById(learningFactId: number): Observable<any> {
     const url = `${this.apiUrl}/${learningFactId}`;
     return this.httpClient.delete(url);
   }
+
 
 
 }
