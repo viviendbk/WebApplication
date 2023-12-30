@@ -19,6 +19,7 @@ import { LearningPackagePageComponent } from './learning-package-page/learning-p
 import { EditPageComponent } from './edit-page/edit-page.component';
 import { CreatePageComponent } from './create-page/create-page.component';
 import { EditLearningPackagePageComponent } from './edit-learning-package-page/edit-learning-package-page.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { EditLearningPackagePageComponent } from './edit-learning-package-page/e
     LearningPackagePageComponent,
     EditPageComponent,
     CreatePageComponent,
-    EditLearningPackagePageComponent
+    EditLearningPackagePageComponent,
+    StatisticsComponent
   ],
   imports: [
     BrowserModule,

@@ -28,6 +28,9 @@ export class LearningFactService {
     return this.httpClient.delete(url);
   }
 
+  getStudyTimeData(): Observable<any[]> {
+    const url = `${this.apiUrl}/learning-facts/study-time-data`; // Adjust the endpoint
+    return this.httpClient.get<any[]>(url);
 
-
+  }
 }

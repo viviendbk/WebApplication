@@ -1,0 +1,19 @@
+<p>statistics works!</p>
+<!-- statistics.component.html -->
+<div>
+  <h2>Study Time Statistics</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>Learning Fact</th>
+      <th>Next Study Time</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let fact of studyTimeData">
+      <td>{{ fact.title }}</td>
+      <td>{{ fact.nextStudyTime | date: 'short' }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
