@@ -21,6 +21,8 @@ import { CreatePageComponent } from './create-page/create-page.component';
 import { EditLearningPackagePageComponent } from './edit-learning-package-page/edit-learning-package-page.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 
+import {NgChartsModule} from "ng2-charts";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +46,9 @@ import { StatisticsComponent } from './statistics/statistics.component';
     MatButtonModule,
     MatStepperModule,
     MatSnackBarModule,
-    NgbModule
+    NgbModule,
+
+    NgChartsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

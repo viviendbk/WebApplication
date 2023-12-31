@@ -31,5 +31,10 @@ export class LearningPackageService {
     return this.http.put(`${this.apiUrl}/${id}`, updatedPackage);
   }
 
+  getLearningPackagesWithFacts(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}`);
+  }
+
+
 
 }
